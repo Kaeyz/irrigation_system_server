@@ -14,10 +14,10 @@ app.get( "/", ( req, res ) => {
 });
 
 app.post("/data", (req, res) => {
-  // save to a database;
-  return res.status(200).json({ statusCode: 200, data: req.body, message: "data logged successfully" });
+	// save to a database;
+	return res.status(200).json({ statusCode: 200, data: req.body, message: "data logged successfully" });
 });
 
 app.listen(port, () => {
-  console.log(`server started at http://localhost:${port}`);
+	console.log(`server started at http://localhost:${port}`);
 }); 
