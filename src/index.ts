@@ -15,6 +15,7 @@ app.get( "/", ( req, res ) => {
 
 app.post("/data", (req, res) => {
 	// save to a database;
+	console.log({ body: req.body });
 	return res.status(200).json({ statusCode: 200, data: req.body, message: "data logged successfully" });
 });
 
