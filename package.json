@@ -4,6 +4,10 @@
   "description": "Server side application for irrigation system",
   "main": "index.js",
   "scripts": {
+    "tsc": "tsc",
+    "postinstall": "npm run tsc",
+    "start": "node .",
+    "dev": "tsc -w & nodemon .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
