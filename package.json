@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Kaeyz/irrigation_system_server/issues"
   },
-  "homepage": "https://github.com/Kaeyz/irrigation_system_server#readme"
+  "homepage": "https://github.com/Kaeyz/irrigation_system_server#readme",
+  "devDependencies": {
+    "typescript": "^4.4.4"
+  }
 }
