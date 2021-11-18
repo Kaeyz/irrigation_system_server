@@ -13,10 +13,15 @@ app.get( "/", ( req, res ) => {
 	return res.send("Welcome to irrigation server");
 });
 
-app.post("/data", (req, res) => {
+
+app.get("/data", (req, res) => {
 	// save to a database;
-	console.log({ body: req.body });
-	return res.status(200).json({ statusCode: 200, data: req.body, message: "data logged successfully" });
+
+	const { sensorId, moistureValue } = req.query;
+
+	const data = { sensorId, moistureValue };
+	console.log(data);
+	return res.status(200).json({ statusCode: 200, data, message: "data logged successfully" });
 });
 
 app.listen(port, () => {
