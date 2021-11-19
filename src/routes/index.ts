@@ -26,6 +26,6 @@ export default (app: Express): Express => {
 	docsRoute(app);
 
 	app.get("/", (req, res) => res.status(200).json({ message: "App is live" }));
-	app.use("*", (req, res) => res.status(404).json({ message: "Invalid route" }));
+	app.use("*", (req, res) => res.status(404).json({ message: "Route does not exist" }));
 	return app;
 };
