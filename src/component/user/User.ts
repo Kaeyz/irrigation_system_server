@@ -4,6 +4,7 @@ export interface IUser extends Document {
 	firstName: string;
 	lastName: string;
 	email: string;
+	userType: string;
 	password?: string;
 	token?: string;
 	tokenExpires?: number;
@@ -23,6 +24,12 @@ const UserSchema: Schema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
+		lowercase: true,
+	},
+	userType: {
+		type: String,
+		enum: ["user", "admin"],
+		required: true,
 		lowercase: true,
 	},
 	password: String,

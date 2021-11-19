@@ -4,10 +4,11 @@ interface IUserInput {
   email: IUser["email"];
   firstName: IUser["firstName"];
 	lastName: IUser["lastName"];
+	userType: IUser["userType"];
 }
 
 const userRepository = {
-	
+
 	createUser: (data: IUserInput) => User.create(data),
 	
 	getUserByEmail: (email: IUser["email"]) => User.findOne({ email }),
