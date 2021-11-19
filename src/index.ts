@@ -1,29 +1,26 @@
 import * as dotenv from "dotenv";
 import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import routes from "./routes";
 
-dotenv.config({ path: ".env"});
-const app = express();
+dotenv.config({ path: ".env" });
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+(async () => {
+	
+	const app = express();
 
-const port = process.env.PORT;
+	app.use(cors());
+	app.use(helmet());
+	app.use(express.json());
+	app.use(express.urlencoded({ extended: true }));
+	
+	routes(app);
+	
+	const port = process.env.PORT;
+	
+	app.listen(port, () => {
+		console.log(`server started at http://localhost:${port}`);
+	});
 
-app.get( "/", ( req, res ) => {
-	return res.send("Welcome to irrigation server");
-});
-
-
-app.get("/data", (req, res) => {
-	// save to a database;
-
-	const { sensorId, moistureValue } = req.query;
-
-	const data = { sensorId, moistureValue };
-	console.log(data);
-	return res.status(200).json({ statusCode: 200, data, message: "data logged successfully" });
-});
-
-app.listen(port, () => {
-	console.log(`server started at http://localhost:${port}`);
-}); 
+})();
