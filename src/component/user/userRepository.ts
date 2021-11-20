@@ -49,7 +49,6 @@ const userRepository = {
 				.catch(err => reject(err));
 		});
 	},
-	
 
 	setUserToken: (id: IUser["_id"], token: IUser["token"]): Promise<IUser | Error> => {
 		return new Promise((resolve, reject) => {
@@ -58,7 +57,6 @@ const userRepository = {
 				.catch(err => reject(err));
 		});
 	},
-		
 
 	getUserByToken: (token: IUser["token"]): Promise<IUser | Error> => {
 		return new Promise((resolve, reject) => {
