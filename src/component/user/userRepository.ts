@@ -30,7 +30,7 @@ const userRepository = {
 		return new Promise((resolve, reject) => {
 			User.findById(id)
 				.then((user: IUser) => resolve(user))
-				.catch((err: any) => reject(err));
+				.catch((err) => reject(err));
 		});
 	},
 	
