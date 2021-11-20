@@ -1,14 +1,22 @@
 import { Schema, models, model, Document, Model } from "mongoose";
 
+
+type userId = typeof import("mongodb").ObjectID;
+
+enum userTypeOptions {
+	"admin", "user"
+}
 export interface IUser extends Document {
+	_id: userId
 	firstName: string;
 	lastName: string;
 	email: string;
-	userType: string;
+	userType: userTypeOptions;
 	password?: string;
 	token?: string;
 	tokenExpires?: number;
-	createdAt: Date;
+	createdAt: number;
+	updatedAt: number;
 }
 
 const UserSchema: Schema = new Schema({
@@ -35,10 +43,9 @@ const UserSchema: Schema = new Schema({
 	password: String,
 	token: String,
 	tokenExpires: Number,
-	createdAt: {
-		type: Date,
-		default: Date.now
-	}
+}, {
+	timestamps: { createdAt: true, updatedAt: true },
+	versionKey: false
 });
 
 const User: Model<IUser> = models.users || model("User", UserSchema);
