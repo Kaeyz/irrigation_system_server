@@ -4,6 +4,8 @@ dotenv.config({ path: ".env" });
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
+import passport from "passport";
+import { passportConfig } from "./config/passport";
 import routes from "./routes";
 import db from "./config/database";
 
@@ -16,7 +18,9 @@ import db from "./config/database";
 	app.use(helmet());
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
-	
+	app.use(passport.initialize());
+
+	passportConfig(passport);
 	routes(app);
 	
 	const port = process.env.PORT;

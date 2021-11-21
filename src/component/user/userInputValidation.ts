@@ -1,34 +1,8 @@
-
 import validator from "validator";
 import { StatusCodes, AppError } from "../../config/http";
 import utils from "../../config/utils";
+import { forgotInput, loginInput, resetInput, userInput, verifyInput } from "./userInterface";
 
-interface userInput {
-	firstName?: string,
-	lastName?: string,
-	email?: string,
-	password?: string,
-	confirmPassword?: string,
-}
-
-interface loginInput {
-	email?: string;
-	password?: string;
-}
-
-interface resetInput {
-	token?: string;
-	password?: string;
-	confirmPassword?: string;
-}
-
-interface verifyInput {
-	token?: string;
-}
-
-interface forgotInput {
-	email?: string;
-}
 
 const userInputValidations = {
 

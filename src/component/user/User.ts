@@ -1,19 +1,5 @@
-import { Schema, models, model, Document, Model, ObjectId } from "mongoose";
-
-type userId = ObjectId;
-type userTypeOptions = "user" | "admin";
-export interface IUser extends Document {
-	_id: userId;
-	firstName: string;
-	lastName: string;
-	email: string;
-	userType: userTypeOptions;
-	password?: string;
-	token?: string;
-	tokenExpires?: number;
-	createdAt: number;
-	updatedAt: number;
-}
+import { Schema, models, model, Model, } from "mongoose";
+import { IUser } from "./userInterface";
 
 const UserSchema: Schema = new Schema({
 	firstName: {

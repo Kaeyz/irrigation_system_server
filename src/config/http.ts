@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 export enum StatusCodes {
+	SUCCESS = 200,
 	BAD_REQUEST = 400,
 	UNAUTHORIZED = 401,
 	FORBIDDEN = 403,
@@ -8,8 +9,18 @@ export enum StatusCodes {
 	INVALID_INPUT = 406,
 	INTERNAL_SERVER_ERROR = 500,
 }
+
+export const responseMessages = {
+	USER_EXIST: "User with email already Exist",
+	LOGIN_FAILED: "Incorrect username or password",
+	USER_SUSPENDED: "User has been suspended",
+	USER_UNAUTHORIZED: "User unauthorized",
+	INVALID_TOKEN: "Invalid or Expired Token",
+	RESET_TOKEN_SENT: "Reset Token has been sent to registered email"
+};
 	
 const errorTypes = {
+	200: "Success",
 	400: "Bad Request",
 	401: "Unauthorized",
 	403: "Forbidden",
@@ -18,7 +29,7 @@ const errorTypes = {
 	500: "Internal Server Error"
 };
 
-type ErrCodes = 400 | 401 | 403 | 404 | 406 | 500;
+type ErrCodes = 200 | 400 | 401 | 403 | 404 | 406 | 500;
 
 export class AppError extends Error {
 	statusCode: ErrCodes;

@@ -1,6 +1,6 @@
-import userController from "./userController";
 import { Router } from "express";
 import { catchAppError } from "../../config/http";
+import userController from "./userController";
 
 const userRouter = Router();
 

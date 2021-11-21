@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { successResponse } from "../../config/http";
 import userInputValidation from "./userInputValidation";
+import { successResponse } from "../../config/http";
 import userService from "./userService";
 
 const userController = {

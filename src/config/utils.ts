@@ -1,4 +1,8 @@
 import bcryptjs from "bcryptjs";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
+import { IJwtPayload } from "../component/user/userInterface";
+import keys from "./keys";
 
 const utils = {
 
@@ -28,6 +32,17 @@ const utils = {
 				.catch((err: Error) => reject(err));
 		});
 	},
+
+	generateLoginToken: (payload: IJwtPayload): Promise<string> => {
+		return new Promise((resolve, reject) => {
+			jwt.sign(payload, keys.secretOrKey, { expiresIn: 7200 }, (err, token) => {
+				if (err) return reject(err);
+				return resolve(token);
+			});
+		});
+	},
+
+	getRandomToken: (size: number) => crypto.randomBytes(size).toString("hex"),
 
 };
 

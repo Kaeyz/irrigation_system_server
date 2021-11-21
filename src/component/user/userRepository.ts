@@ -1,15 +1,5 @@
-import User, { IUser } from "./User";
-
-/**
- * Interface for Repository User Input
- * @interface IRUserInput
- */
-export interface IRUserInput { 
-  email: IUser["email"];
-  firstName: IUser["firstName"];
-	lastName: IUser["lastName"];
-	userType: IUser["userType"];
-}
+import { IUser, IRUserInput } from "./userInterface";
+import User from "./User";
 
 const userRepository = {
 
@@ -70,9 +60,9 @@ const userRepository = {
 		});
 	},
 
-	resetTokenAndExpiry: (token: IUser["token"]): Promise<IUser> => {
+	resetTokenAndExpiry: (id: IUser["_id"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
-			User.findOneAndUpdate({ token }, { token: undefined, tokenExpires: undefined }, { new: true })
+			User.findByIdAndUpdate(id, { token: undefined, tokenExpires: undefined }, { new: true })
 				.then((user: IUser) => resolve(user))
 				.catch(err => reject(err));
 		});
