@@ -4,20 +4,21 @@ export enum StatusCodes {
 	BAD_REQUEST = 400,
 	UNAUTHORIZED = 401,
 	FORBIDDEN = 403,
-	INVALID_INPUT = 403,
 	NOT_FOUND = 404,
+	INVALID_INPUT = 406,
 	INTERNAL_SERVER_ERROR = 500,
 }
-
+	
 const errorTypes = {
 	400: "Bad Request",
 	401: "Unauthorized",
-	403: "Input Validation Error",
+	403: "Forbidden",
 	404: "Not Found",
+	406: "Input Validation Error",
 	500: "Internal Server Error"
 };
 
-type ErrCodes = 400 | 401 | 403 | 404 | 500;
+type ErrCodes = 400 | 401 | 403 | 404 | 406 | 500;
 
 export class AppError extends Error {
 	statusCode: ErrCodes;

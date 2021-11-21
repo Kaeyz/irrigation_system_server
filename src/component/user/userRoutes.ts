@@ -5,11 +5,11 @@ import { catchAppError } from "../../config/http";
 const userRouter = Router();
 
 userRouter.post("/", catchAppError(userController.createUser));
-userRouter.get("/", userController.getLoggedInUser);
-userRouter.post("/admin", userController.createAdmin);
-userRouter.post("/login", userController.loginUser);
-userRouter.post("/forgot", userController.forgotPassword);
-userRouter.post("/verify", userController.verifyToken);
-userRouter.post("/reset-password", userController.resetPassword);
+userRouter.post("/admin", catchAppError(userController.createAdmin));
+userRouter.post("/login", catchAppError(userController.loginUser));
+userRouter.get("/me", catchAppError(userController.getLoggedInUser));
+userRouter.post("/forgot", catchAppError(userController.forgotPassword));
+userRouter.post("/verify", catchAppError(userController.verifyToken));
+userRouter.post("/reset-password", catchAppError(userController.resetPassword));
 
 export default Object.freeze(userRouter);

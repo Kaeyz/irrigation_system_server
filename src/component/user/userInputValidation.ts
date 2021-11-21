@@ -66,7 +66,11 @@ const userInputValidations = {
 		if (validator.isEmpty(data.email)) errors.email = "Email is required";
 		if (validator.isEmpty(data.password)) errors.password = "Password is required";
 
-		return { errors, isValid: utils.isEmpty(errors) };
+		const isValid = utils.isEmpty(errors);
+		if (!isValid) {
+			throw new AppError(StatusCodes.INVALID_INPUT, errors);
+		}
+		return isValid;
 	},
 
 	validateForgot: (data: forgotInput) => {
@@ -77,7 +81,11 @@ const userInputValidations = {
 		if (!validator.isEmail(data.email)) errors.email = "Invalid Email";
 		if (validator.isEmpty(data.email)) errors.email = "Email is required";
 
-		return { errors, isValid: utils.isEmpty(errors) };
+		const isValid = utils.isEmpty(errors);
+		if (!isValid) {
+			throw new AppError(StatusCodes.INVALID_INPUT, errors);
+		}
+		return isValid;
 	},
 
 	validateVerify: (data: verifyInput) => {
@@ -87,7 +95,11 @@ const userInputValidations = {
 
 		if (validator.isEmpty(data.token)) errors.token = "Token is required";
 
-		return { errors, isValid: utils.isEmpty(errors) };		
+		const isValid = utils.isEmpty(errors);
+		if (!isValid) {
+			throw new AppError(StatusCodes.INVALID_INPUT, errors);
+		}
+		return isValid;		
 	},
 
 	validateResetPassword: (data: resetInput) => {
@@ -102,7 +114,11 @@ const userInputValidations = {
 		if (validator.isEmpty(data.password)) errors.password = "Password is required";
 		if (validator.isEmpty(data.confirmPassword)) errors.confirmPassword = "Confirm Password is required";
 
-		return { errors, isValid: utils.isEmpty(errors) };
+		const isValid = utils.isEmpty(errors);
+		if (!isValid) {
+			throw new AppError(StatusCodes.INVALID_INPUT, errors);
+		}
+		return isValid;
 	}
 
 };
