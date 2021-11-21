@@ -15,6 +15,7 @@ export const responseMessages = {
 	LOGIN_FAILED: "Incorrect username or password",
 	USER_SUSPENDED: "User has been suspended",
 	USER_UNAUTHORIZED: "User unauthorized",
+	SESSION_EXPIRED: "User session Expired",
 	INVALID_TOKEN: "Invalid or Expired Token",
 	RESET_TOKEN_SENT: "Reset Token has been sent to registered email"
 };
