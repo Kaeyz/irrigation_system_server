@@ -27,24 +27,38 @@ const userController = {
 
 	loginUser: async (req: Request, res: Response) => {
 		userInputValidation.validateLoginUser(req.body);
-		return res.status(200).json(req.body);
+		const token =	await userService.authenticateUser(req.body);
+		const response = { ...successResponse, data: { token }, message: "Login Successful" };
+		return res.status(response.statusCode).json(response);
 	},
 
 	forgotPassword: async (req: Request, res: Response) => {
-		return res.status(200).json(req.body);
+		await userInputValidation.validateForgot(req.body);
+		await userService.initiateForgot(req.body.email);
+		const response = { ...successResponse, message: "Reset Password send to email" };
+		return res.status(response.statusCode).json(response);
 	},
 
 	verifyToken: async (req: Request, res: Response) => {
-		return res.status(200).json(req.body);
+		userInputValidation.validateVerify(req.body);
+		const data = await userService.verifyToken(req.body.token);
+		const response = { ...successResponse, data, message: "Token verified" };
+		return res.status(response.statusCode).json(response);
 	},
 
 	resetPassword: async (req: Request, res: Response) => {
-		return res.status(200).json(req.body);
+		userInputValidation.validateResetPassword(req.body);
+		const user = await userService.resetPassword(req.body);
+		const loginData = { email: user.email, password: req.body.password};
+		const token = await userService.authenticateUser(loginData);
+		const response = { ...successResponse, data: { token }, message: "Password reset Successful and user Logged in" };
+		return res.status(response.statusCode).json(response);
 	},
 
 	getLoggedInUser: async (req: Request, res: Response) => {
-		return res.status(200).json(req.body);
-	},
+		const response = { ...successResponse, data: req.user};
+		return res.status(response.statusCode).json(response);
+	}
 
 };
 

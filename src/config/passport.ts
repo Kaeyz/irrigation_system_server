@@ -22,8 +22,8 @@ export const passportConfig = (passport: PassportStatic) => {
 	passport.use(new Strategy(opts, (jwt_payload: IJwtPayload, done) => {
 		userService.getLoggedInUser(jwt_payload._id)
 			.then(user => {
-				if (user) return done(null, user);
-				return done(null, false);
+				if (!user) return done(null, false);
+				return done(null, user);
 			})
 			.catch(() => {
 				throw new Error("Passport initialization failed");

@@ -62,7 +62,7 @@ const userRepository = {
 
 	resetTokenAndExpiry: (id: IUser["_id"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
-			User.findByIdAndUpdate(id, { token: undefined, tokenExpires: undefined }, { new: true })
+			User.findByIdAndUpdate(id, {$unset: {token: 1, tokenExpires: 1}  }, { new: true })
 				.then((user: IUser) => resolve(user))
 				.catch(err => reject(err));
 		});

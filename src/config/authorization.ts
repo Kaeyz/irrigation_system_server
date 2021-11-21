@@ -5,7 +5,7 @@ import { StatusCodes, AppError, responseMessages } from "./http";
 
 
 const authenticate = (req: Request, res: Response, next: NextFunction, callback?: (user: ISecureUserData, next: NextFunction) => void) => {
-	passport.authenticate("jwt", { session: false }, (user: ISecureUserData) => {
+	passport.authenticate("jwt", { session: false }, (err, user: ISecureUserData) => {
 		if (!user) throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.SESSION_EXPIRED);
 		if (!user.isActive) throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_SUSPENDED);
 		req.user = user;

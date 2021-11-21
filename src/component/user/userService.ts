@@ -47,12 +47,10 @@ const userService = {
 		let user = await userRepository.getUserByEmail(email);
 		if (!user) throw new AppError(StatusCodes.SUCCESS, null, responseMessages.RESET_TOKEN_SENT);
 		if (!user.isActive) throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_SUSPENDED);
-		const token = utils.getRandomToken(6);
+		const token = utils.getRandomToken(3).toUpperCase();
 		user = await userRepository.setUserToken(user._id, token);
-		const resetMessage = `
-			Reset token for ${user.email} is: ${user.token}
-			Reset link: ${keys.webAppLink}/reset/${user.token}
-		`;
+		const resetMessage = `Reset token for ${user.email} is: ${user.token}
+Reset link: ${keys.webAppLink}/reset/${user.token}`;
 		await sheldon.sendMessage(resetMessage);
 		return;
 	},
@@ -65,7 +63,8 @@ const userService = {
 
 	resetPassword: async (resetData: resetInput): Promise<ISecureUserData> => {
 		const { user } = await userService.verifyToken(resetData.token);
-		let updatedUser = await userRepository.setPassword(user._id, resetData.password);
+		const passwordHash = await utils.hashValue(resetData.password);
+		let updatedUser = await userRepository.setPassword(user._id, passwordHash);
 		updatedUser = await userRepository.resetTokenAndExpiry(updatedUser._id);
 		return convertToSecureUserData(updatedUser);
 	}
