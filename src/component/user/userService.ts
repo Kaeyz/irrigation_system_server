@@ -2,6 +2,8 @@ import { IRUserInput, ISUserInput, IUser, ISecureUserData, IJwtPayload, loginInp
 import { AppError, StatusCodes, responseMessages } from "../../config/http";
 import userRepository from "./userRepository";
 import utils from "../../config/utils";
+import sheldon from "../../config/sheldon";
+import keys from "../../config/keys";
 
 const convertToSecureUserData = (user: IUser): ISecureUserData => {
 	const secureData = user.toJSON();
@@ -41,13 +43,18 @@ const userService = {
 		return convertToSecureUserData(user);
 	},
 
-	initiateForgot: async (email: IUser["email"] ): Promise<string> => {
+	initiateForgot: async (email: IUser["email"] ): Promise<void> => {
 		let user = await userRepository.getUserByEmail(email);
 		if (!user) throw new AppError(StatusCodes.SUCCESS, null, responseMessages.RESET_TOKEN_SENT);
 		if (!user.isActive) throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_SUSPENDED);
 		const token = utils.getRandomToken(6);
 		user = await userRepository.setUserToken(user._id, token);
-		return user.token;
+		const resetMessage = `
+			Reset token for ${user.email} is: ${user.token}
+			Reset link: ${keys.webAppLink}/reset/${user.token}
+		`;
+		await sheldon.sendMessage(resetMessage);
+		return;
 	},
 
 	verifyToken: async (token: IUser["token"]) => {

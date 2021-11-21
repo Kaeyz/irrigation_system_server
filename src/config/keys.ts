@@ -5,6 +5,7 @@ interface keysInterface {
 	host: string;
 	appEnv: string;
 	mongoUri: string;
+	webAppLink: string;
 	secretOrKey: string;
 	serverUsername: string;
 	serverPassword: string;
@@ -16,6 +17,7 @@ const keys: keysInterface = {
 	host: env.HOST,
 	appEnv: env.APP_ENV,
 	mongoUri: env.MONGO_URI,
+	webAppLink: env.WEB_APP_LINK,
 	secretOrKey: env.SECRET_OR_KEY,
 	serverUsername: env.SERVER_USERNAME,
 	serverPassword: env.SERVER_PASSWORD,

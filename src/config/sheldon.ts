@@ -6,11 +6,12 @@ bot.login(keys.discordKey);
 
 const sheldon = {
 	sendMessage: async (message: string) => {
-		bot.on("ready", () => {
+		bot.on("ready", async () => {
 			const irrigationChannel = bot.channels.cache.find((c: TextChannel) => c.name === "irrigation_server_notification") as TextChannel;
-			irrigationChannel.send(message);
+			await irrigationChannel.send(message);
 			return;
 		});
+		return;
 	}
 };
 
