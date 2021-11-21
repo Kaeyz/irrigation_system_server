@@ -1,13 +1,9 @@
-import { Schema, models, model, Document, Model } from "mongoose";
+import { Schema, models, model, Document, Model, ObjectId } from "mongoose";
 
-
-type userId = typeof import("mongodb").ObjectID;
-
-enum userTypeOptions {
-	"admin", "user"
-}
+type userId = ObjectId;
+type userTypeOptions = "user" | "admin";
 export interface IUser extends Document {
-	_id: userId
+	_id: userId;
 	firstName: string;
 	lastName: string;
 	email: string;
@@ -45,9 +41,9 @@ const UserSchema: Schema = new Schema({
 	tokenExpires: Number,
 }, {
 	timestamps: { createdAt: true, updatedAt: true },
-	versionKey: false
+	versionKey: false,
 });
 
 const User: Model<IUser> = models.users || model("User", UserSchema);
 
-export default Object.freeze(User);
+export default User;

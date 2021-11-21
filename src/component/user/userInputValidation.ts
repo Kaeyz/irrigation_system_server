@@ -1,0 +1,110 @@
+
+import validator from "validator";
+import { StatusCodes, AppError } from "../../config/http";
+import utils from "../../config/utils";
+
+interface userInput {
+	firstName?: string,
+	lastName?: string,
+	email?: string,
+	password?: string,
+	confirmPassword?: string,
+}
+
+interface loginInput {
+	email?: string;
+	password?: string;
+}
+
+interface resetInput {
+	token?: string;
+	password?: string;
+	confirmPassword?: string;
+}
+
+interface verifyInput {
+	token?: string;
+}
+
+interface forgotInput {
+	email?: string;
+}
+
+const userInputValidations = {
+
+	validateCreateUser: (data: userInput) => {
+		const errors: userInput = {};
+
+		data.firstName = utils.validateIsEmpty(data.firstName);
+		data.lastName = utils.validateIsEmpty(data.lastName);
+		data.email = utils.validateIsEmpty(data.email);
+		data.password = utils.validateIsEmpty(data.password);
+		data.confirmPassword = utils.validateIsEmpty(data.confirmPassword);
+
+		if (validator.isEmpty(data.firstName)) errors.firstName = "First Name is required";
+		if (validator.isEmpty(data.lastName)) errors.lastName = "Last Name is required";
+		if (!validator.isEmail(data.email)) errors.email = "Invalid Email";
+		if (validator.isEmpty(data.email)) errors.email = "Email is required";
+		if (data.password !== data.confirmPassword) errors.password = "Password do not match";
+		if (validator.isEmpty(data.password)) errors.password = "Password is required";
+		if (validator.isEmpty(data.confirmPassword)) errors.confirmPassword = "Confirm Password is required";
+
+		const isValid = utils.isEmpty(errors);
+		if (!isValid) {
+			throw new AppError(StatusCodes.INVALID_INPUT, errors);
+		}
+		return isValid;
+	},
+
+	validateLoginUser: (data: loginInput) => {
+		const errors: loginInput = {};
+
+		data.email = utils.validateIsEmpty(data.email);
+		data.password = utils.validateIsEmpty(data.password);
+
+		if (!validator.isEmail(data.email)) errors.email = "Invalid Email";
+		if (validator.isEmpty(data.email)) errors.email = "Email is required";
+		if (validator.isEmpty(data.password)) errors.password = "Password is required";
+
+		return { errors, isValid: utils.isEmpty(errors) };
+	},
+
+	validateForgot: (data: forgotInput) => {
+		const errors: forgotInput = {};
+
+		data.email = utils.validateIsEmpty(data.email);
+
+		if (!validator.isEmail(data.email)) errors.email = "Invalid Email";
+		if (validator.isEmpty(data.email)) errors.email = "Email is required";
+
+		return { errors, isValid: utils.isEmpty(errors) };
+	},
+
+	validateVerify: (data: verifyInput) => {
+		const errors: verifyInput = {};
+
+		data.token = utils.validateIsEmpty(data.token);
+
+		if (validator.isEmpty(data.token)) errors.token = "Token is required";
+
+		return { errors, isValid: utils.isEmpty(errors) };		
+	},
+
+	validateResetPassword: (data: resetInput) => {
+		const errors: resetInput = {};
+
+		data.token = utils.validateIsEmpty(data.token);
+		data.password = utils.validateIsEmpty(data.password);
+		data.confirmPassword = utils.validateIsEmpty(data.confirmPassword);
+
+		if (validator.isEmpty(data.token)) errors.token = "Token is required";
+		if (data.password !== data.confirmPassword) errors.password = "Password do not match";
+		if (validator.isEmpty(data.password)) errors.password = "Password is required";
+		if (validator.isEmpty(data.confirmPassword)) errors.confirmPassword = "Confirm Password is required";
+
+		return { errors, isValid: utils.isEmpty(errors) };
+	}
+
+};
+
+export default Object.freeze(userInputValidations);

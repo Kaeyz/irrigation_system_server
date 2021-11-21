@@ -1,7 +1,8 @@
 import { Express } from "express";
 import basicAuth from "express-basic-auth";
-import docsRoute from "./docsRoute";
+import userRoutes from "../component/user/userRoutes";
 import keys from "../config/keys";
+import docsRoute from "./docsRoute";
 
 const { serverPassword, serverUsername } = keys;
 
@@ -10,18 +11,20 @@ const getUnauthorizedResponse = (req:  basicAuth.IBasicAuthedRequest) => {
 };
 
 export default (app: Express): Express => {
-	
-	app.use(basicAuth({
-		users: { [serverUsername]:serverPassword },
-		challenge: true,
-		unauthorizedResponse: getUnauthorizedResponse
-	}));
-	
+
 	app.get("/data", (req, res) => {
 		const { sensorId, moistureValue } = req.query;
 		const data = { sensorId, moistureValue };
 		return res.status(200).json({ statusCode: 200, data, message: "data logged successfully" });
 	});
+
+	app.use(basicAuth({
+		users: { [serverUsername]:serverPassword },
+		challenge: true,
+		unauthorizedResponse: getUnauthorizedResponse
+	}));
+
+	app.use("/users", userRoutes);
 	
 	docsRoute(app);
 

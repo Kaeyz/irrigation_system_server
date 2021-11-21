@@ -1,6 +1,6 @@
 import { Express, Request, Response } from "express";
 import swaggerUi from "swagger-ui-express";
-import docsConfig from "../docs";
+import { docsConfig } from "../docs";
 
 const setupDocs = (app: Express) => {
 	const swaggerHtml = swaggerUi.generateHTML(docsConfig);

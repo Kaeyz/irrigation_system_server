@@ -1,11 +1,11 @@
 import * as dotenv from "dotenv";
 dotenv.config({ path: ".env" });
+
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import routes from "./routes";
 import db from "./config/database";
-
 
 (async () => {
 	
@@ -21,8 +21,6 @@ import db from "./config/database";
 	
 	const port = process.env.PORT;
 	
-	app.listen(port, () => {
-		console.log(`server started at http://localhost:${port}`);
-	});
-
+	app.listen(port, () => console.log(`server started at http://localhost:${port}`));
+	
 })();

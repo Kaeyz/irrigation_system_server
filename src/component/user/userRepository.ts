@@ -1,6 +1,10 @@
 import User, { IUser } from "./User";
 
-interface IUserInput {
+/**
+ * Interface for Repository User Input
+ * @interface IRUserInput
+ */
+export interface IRUserInput { 
   email: IUser["email"];
   firstName: IUser["firstName"];
 	lastName: IUser["lastName"];
@@ -9,7 +13,7 @@ interface IUserInput {
 
 const userRepository = {
 
-	createUser: (data: IUserInput): Promise<IUser|Error>  => {
+	createUser: (data: IRUserInput): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			const newUser = new User(data);
 			newUser.save()
@@ -18,7 +22,7 @@ const userRepository = {
 		});
 	},
 	
-	getUserByEmail: (email: IUser["email"]): Promise<IUser|Error> => {
+	getUserByEmail: (email: IUser["email"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findOne({ email })
 				.then((user: IUser) => resolve(user))
@@ -26,7 +30,7 @@ const userRepository = {
 		});
 	},
 	
-	getUserById: (id: IUser["_id"]): Promise<IUser|Error> => {
+	getUserById: (id: IUser["_id"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findById(id)
 				.then((user: IUser) => resolve(user))
@@ -34,7 +38,7 @@ const userRepository = {
 		});
 	},
 	
-	updateUser: (id: IUser["_id"], data: IUserInput) : Promise<IUser|Error> => {
+	updateUser: (id: IUser["_id"], data: IRUserInput) : Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findByIdAndUpdate(id, data, { new: true })
 				.then((user: IUser) => resolve(user))
@@ -42,7 +46,7 @@ const userRepository = {
 		});
 	},
 	
-	setPassword: (id: IUser["_id"], password: IUser["password"]) : Promise<IUser|Error> => {
+	setPassword: (id: IUser["_id"], password: IUser["password"]) : Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findByIdAndUpdate(id, { password }, { new: true })
 				.then((user: IUser) => resolve(user))
@@ -50,7 +54,7 @@ const userRepository = {
 		});
 	},
 
-	setUserToken: (id: IUser["_id"], token: IUser["token"]): Promise<IUser | Error> => {
+	setUserToken: (id: IUser["_id"], token: IUser["token"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findByIdAndUpdate(id, { token, tokenExpires: Date.now() + 3600000 }, { new: true }) 	//token expires set to 1 hour
 				.then((user: IUser) => resolve(user))
@@ -58,7 +62,7 @@ const userRepository = {
 		});
 	},
 
-	getUserByToken: (token: IUser["token"]): Promise<IUser | Error> => {
+	getUserByToken: (token: IUser["token"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findOne({ token, tokenExpires: { $gt: Date.now() } })
 				.then((user: IUser) => resolve(user))
@@ -66,7 +70,7 @@ const userRepository = {
 		});
 	},
 
-	resetTokenAndExpiry: (token: IUser["token"]) => {
+	resetTokenAndExpiry: (token: IUser["token"]): Promise<IUser> => {
 		return new Promise((resolve, reject) => {
 			User.findOneAndUpdate({ token }, { token: undefined, tokenExpires: undefined }, { new: true })
 				.then((user: IUser) => resolve(user))

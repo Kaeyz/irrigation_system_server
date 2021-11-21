@@ -2,7 +2,7 @@ import swaggerJsDoc from "swagger-jsdoc";
 import { resolve } from "path";
 import keys from "../config/keys";
 
-const docsConfig = swaggerJsDoc({
+export const docsConfig = swaggerJsDoc({
 	swaggerDefinition: {
 		openapi: "3.0.0",
 		servers: [{url: `${keys.host}`}],
@@ -14,5 +14,3 @@ const docsConfig = swaggerJsDoc({
 		}},
 	apis: [resolve(__dirname, "./**/*.js")],
 });
-
-export default Object.freeze(docsConfig);
