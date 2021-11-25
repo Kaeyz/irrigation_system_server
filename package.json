@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "tsc": "tsc",
-    "postinstall": "npm run tsc",
-    "start": "node .",
+    "start": "tsc && node .",
+    "postinstall": "tsc",
     "dev": "tsc-watch --onSuccess \"node .\"",
     "dev-debug": "tsc-watch --onSuccess \"node --trace-warnings .\"",
     "build": "tsc",
