@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "tsc": "tsc",
+    "h_build": "rimraf dist && tsc",
+    "postinstall": "npm run h_build",
     "start": "tsc && node .",
-    "postinstall": "tsc",
     "dev": "tsc-watch --onSuccess \"node .\"",
     "dev-debug": "tsc-watch --onSuccess \"node --trace-warnings .\"",
     "build": "tsc",
