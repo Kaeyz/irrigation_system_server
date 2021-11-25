@@ -14,3 +14,28 @@ export interface IDevice extends Document {
   createdAt: number;
   updatedAt: number;
 }
+
+/**
+ * Interface for Devices
+ * @interface IDevices
+ */
+export interface IDevices {
+	data: IDevice[];
+	count: number;
+	limit: number;
+	page: number;
+}
+
+/**
+ * Interface for Device Repository Input 
+ * @interface IRDeviceInput
+ */
+export interface IRDeviceInput {
+  type: IDevice["type"];
+  serialNumber: IDevice["serialNumber"];
+}
+
+export interface createDeviceInput {
+  type?: string;
+  serialNumber?: string;
+}

@@ -11,8 +11,11 @@ const DeviceSchema: Schema = new Schema({
 		type: String,
 		enum: ["moistureSensor", "controlValve"],
 		required: true,
-		lowercase: true,
 	},
+	isMapped: {
+		type: Boolean,
+		default: false
+	}
 }, {
 	timestamps: { createdAt: true },
 	versionKey: false,

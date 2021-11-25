@@ -1,5 +1,6 @@
 import { Express } from "express";
 import basicAuth from "express-basic-auth";
+import deviceRoutes from "../component/device/deviceRoutes";
 import userRoutes from "../component/user/userRoutes";
 import keys from "../config/keys";
 import docsRoute from "./docsRoute";
@@ -25,6 +26,7 @@ export default (app: Express): Express => {
 	}));
 
 	app.use("/users", userRoutes);
+	app.use("/devices", deviceRoutes);
 	
 	docsRoute(app);
 

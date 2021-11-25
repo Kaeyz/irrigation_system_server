@@ -17,7 +17,9 @@ export const responseMessages = {
 	USER_UNAUTHORIZED: "User unauthorized",
 	SESSION_EXPIRED: "User session Expired",
 	INVALID_TOKEN: "Invalid or Expired Token",
-	RESET_TOKEN_SENT: "Reset Token has been sent to registered email"
+	RESET_TOKEN_SENT: "Reset Token has been sent to registered email",
+	DEVICE_EXIST: "Device already exist",
+	DEVICE_NOT_FOUND: "Device not found"
 };
 	
 const errorTypes = {
