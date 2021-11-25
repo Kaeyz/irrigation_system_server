@@ -9,7 +9,7 @@ const sheldon = {
 	sendMessage: async (message: string) => {
 		const irrigationChannel = bot.channels.cache.find((c: TextChannel) => c.name === "irrigation_server_notification") as TextChannel;
 		await irrigationChannel.send(message);
-		return;
+		return message;
 	}
 };
 
