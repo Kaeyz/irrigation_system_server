@@ -34,17 +34,15 @@ const errorTypes = {
 
 type ErrCodes = 200 | 400 | 401 | 403 | 404 | 406 | 500;
 
-export class AppError extends Error {
+export class AppError {
 	statusCode: ErrCodes;
 	type: string;
+	message: string;
 	data: unknown;
-	errorMessage: string;
-	trace: string;
 	constructor(statusCode?: ErrCodes, data?: unknown, message?: string, type?: string) {
-		super(message || errorTypes[500]);
 		this.statusCode = statusCode || 500;
 		this.type = type || errorTypes[statusCode] || errorTypes[500];
-		this.errorMessage = message || errorTypes[statusCode];
+		this.message = message || errorTypes[statusCode];
 		this.data = data || null;
 	}
 }
