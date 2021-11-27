@@ -30,9 +30,9 @@ const userService = {
 
 	authenticateUser: async (loginData: loginInput): Promise<string> => {
 		const user = await userRepository.getUserByEmail(loginData.email);
-		if (!user) throw new AppError(StatusCodes.BAD_REQUEST, responseMessages.LOGIN_FAILED);
+		if (!user) throw new AppError(StatusCodes.BAD_REQUEST, null, responseMessages.LOGIN_FAILED);
 		const isMatch = await utils.compareHash(user.password, loginData.password);
-		if (!isMatch) throw new AppError(StatusCodes.BAD_REQUEST, responseMessages.LOGIN_FAILED);
+		if (!isMatch) throw new AppError(StatusCodes.BAD_REQUEST, null, responseMessages.LOGIN_FAILED);
 		const payload: IJwtPayload  = { _id: user._id, email: user.email };
 		const authToken = await utils.generateLoginToken(payload);
 		return authToken;
