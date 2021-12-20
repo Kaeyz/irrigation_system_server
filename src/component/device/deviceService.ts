@@ -10,7 +10,7 @@ const deviceService = {
 		return newDevice;
 	},
 
-	getAllDevices: (page:number, limit:number, search:string,  type: string, isMapped:boolean) => {
+	getAllDevices: (page?:number, limit?:number, search?:string,  type?: string, isMapped?:boolean) => {
 		return deviceRepository.getDevices(page, limit, search, type, isMapped);
 	},
 

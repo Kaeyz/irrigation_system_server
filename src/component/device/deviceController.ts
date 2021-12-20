@@ -12,8 +12,8 @@ const deviceController = {
 	},
 
 	getDevices: async (req: Request, res: Response) => {
-		const { limit, page, search, isMapped, type } = req.query;
-		const devices = await deviceService.getAllDevices(+page, +limit, String(search), String(type), !!isMapped);
+		//const { limit, page, search, isMapped, type } = req.query;
+		const devices = await deviceService.getAllDevices();
 		const response = { ...successResponse, data: devices };
 		return res.status(response.statusCode).json(response);
 	},

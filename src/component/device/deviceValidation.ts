@@ -13,7 +13,7 @@ const deviceInputValidations = {
 		const type = utils.validateIsEmpty(data.type);
 
 		if (validator.isEmpty(serialNumber)) errors.serialNumber = "Serial Number is required";
-		if (!["moisture_sensor", "control_valve"].includes(data.type)) errors.type = "Type must moisture_sensor or control_valve";
+		if (!["moistureSensor", "controlValve"].includes(data.type)) errors.type = "Type must moistureSensor or controlValve";
 		if (validator.isEmpty(type)) errors.type = "Type is required";
 
 		const isValid = utils.isEmpty(errors);
