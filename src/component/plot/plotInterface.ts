@@ -9,6 +9,7 @@ type plotId = ObjectId;
  */
 export interface IPlot extends Document {
 	_id: plotId;
+	name: string;
 	user: IUser["_id"];
 	moistureRequirement: number;
 	moistureSensor: string;
@@ -17,3 +18,16 @@ export interface IPlot extends Document {
 	updatedAt: number;
 }
 
+export interface IPlotInput {
+	name: IPlot["name"];
+	user: IPlot["user"];
+	moistureRequirement: IPlot["moistureRequirement"];
+	controlValve: IPlot["controlValve"];
+	moistureSensor: IPlot["moistureSensor"];
+}
+export interface plotInput {
+	name?: string;
+	moistureRequirement?: string;
+	controlValve?: string;
+	moistureSensor?: string;
+}

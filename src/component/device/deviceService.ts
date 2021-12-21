@@ -20,6 +20,14 @@ const deviceService = {
 		return device;
 	},
 
+	checkDeviceAlreadyMapped: async (serialNumber: IDevice["serialNumber"]) => {
+		const device = await deviceRepository.getDeviceBySerialNumber(serialNumber);
+		if (!device) throw new AppError(StatusCodes.NOT_FOUND, null, responseMessages.DEVICE_NOT_FOUND);
+		const data = { serialNumber: device.serialNumber };
+		if (device.isMapped) throw new AppError(StatusCodes.BAD_REQUEST, data, responseMessages.DEVICE_IS_MAPPED);
+		return device;
+	},
+
 	mapDevice: (serialNumber: IDevice["serialNumber"]) => {
 		return deviceRepository.mapDevice(serialNumber);
 	},

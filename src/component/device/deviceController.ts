@@ -22,7 +22,6 @@ const deviceController = {
 		const device = await deviceService.getDeviceBySerialNumber(req.params.serialNumber);
 		const response = { ...successResponse, data: device };
 		return res.status(response.statusCode).json(response);
-		
 	}
 };
 

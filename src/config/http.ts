@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ISecureUserData } from "../component/user/userInterface";
 
 export enum StatusCodes {
 	SUCCESS = 200,
@@ -19,7 +20,10 @@ export const responseMessages = {
 	INVALID_TOKEN: "Invalid or Expired Token",
 	RESET_TOKEN_SENT: "Reset Token has been sent to registered email",
 	DEVICE_EXIST: "Device already exist",
-	DEVICE_NOT_FOUND: "Device not found"
+	DEVICE_NOT_FOUND: "Device not found",
+	DEVICE_IS_MAPPED: "Device is already mapped",
+	USER_PLOT_EXIST: "Plot with similar name exist under Logged In Uer",
+	PLOT_NOT_FOUND: "Plot not found"
 };
 	
 const errorTypes = {
@@ -54,6 +58,10 @@ export const catchAppError = (fn: (req: Request, res: Response) => Promise<unkno
 		});
 	};
 };
+
+export interface AuthRequest extends Request {
+	user: ISecureUserData
+}
 
 interface ISuccessResponse {
 	statusCode: number;

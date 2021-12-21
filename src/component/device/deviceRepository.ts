@@ -28,7 +28,7 @@ const deviceRepository = {
 		return { data: devices, count, limit, page };
 	},
 
-	getDeviceBySerialNumber: async (serialNumber: IDevice["serialNumber"]): Promise<IDevice> => {
+	getDeviceBySerialNumber: (serialNumber: IDevice["serialNumber"]): Promise<IDevice> => {
 		return new Promise((resolve, reject) => {
 			Device.findOne({ serialNumber })
 				.then((device: IDevice) => resolve(device))
@@ -36,7 +36,7 @@ const deviceRepository = {
 		});
 	},
 
-	mapDevice: async (serialNumber: IDevice["serialNumber"]): Promise<IDevice> => {
+	mapDevice: (serialNumber: IDevice["serialNumber"]): Promise<IDevice> => {
 		return new Promise((resolve, reject) => {
 			Device.findOneAndUpdate({ serialNumber }, { isMapped: true }, { new: true })
 				.then((device: IDevice) => resolve(device))
@@ -44,7 +44,7 @@ const deviceRepository = {
 		});
 	},
 
-	unMapDevice: async (serialNumber: IDevice["serialNumber"]): Promise<IDevice> => {
+	unMapDevice: (serialNumber: IDevice["serialNumber"]): Promise<IDevice> => {
 		return new Promise((resolve, reject) => {
 			Device.findOneAndUpdate({ serialNumber }, { isMapped: false }, { new: true })
 				.then((device: IDevice) => resolve(device))

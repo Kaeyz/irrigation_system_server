@@ -11,6 +11,7 @@ export interface IDevice extends Document {
   _id: deviceId;
   type: deviceTypeOptions;
   serialNumber: string;
+  isMapped: boolean;
   createdAt: number;
   updatedAt: number;
 }
