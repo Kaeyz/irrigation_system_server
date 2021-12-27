@@ -1,5 +1,5 @@
 import { AppError, responseMessages, StatusCodes } from "../../config/http";
-import { IPlotInput } from "./plotInterface";
+import { IPlot, IPlotInput } from "./plotInterface";
 import plotRepository from "./plotRepository";
 
 const plotService = {
@@ -16,7 +16,12 @@ const plotService = {
 		const plot = await plotRepository.getPlotById(id);
 		if (!plot) throw new AppError(StatusCodes.NOT_FOUND, null, responseMessages.PLOT_NOT_FOUND);
 		return plot;
-	}  
+	},
+	getPlotByMoistureSensor: async (moistureSensor: IPlot["moistureSensor"]) => {
+		const plot = await plotRepository.getPlotByMoistureSensor(moistureSensor);
+		if (!plot) throw new AppError(StatusCodes.NOT_FOUND, null, responseMessages.PLOT_NOT_FOUND);
+		return plot;
+	}
 };
 
 export default Object.freeze(plotService);

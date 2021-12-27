@@ -33,6 +33,14 @@ const plotRepository = {
 				.then((plot: IPlot) => resolve(plot))
 				.catch(err => reject(err));
 		});
+	},
+
+	getPlotByMoistureSensor: (moistureSensor: IPlot["moistureSensor"]): Promise<IPlot> => {
+		return new Promise((resolve, reject) => {
+			Plot.findOne({ moistureSensor })
+				.then((plot: IPlot) => resolve(plot))
+				.catch(err => reject(err));
+		});
 	}
 
 };

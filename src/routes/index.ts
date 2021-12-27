@@ -5,6 +5,7 @@ import userRoutes from "../component/user/userRoutes";
 import plotRoutes from "../component/plot/plotRoutes";
 import keys from "../config/keys";
 import docsRoute from "./docsRoute";
+import historyRoutes, {notificationRouter} from "../component/moistureHistory/historyRoutes";
 
 const { serverPassword, serverUsername } = keys;
 
@@ -14,11 +15,7 @@ const getUnauthorizedResponse = (req:  basicAuth.IBasicAuthedRequest) => {
 
 export default (app: Express): Express => {
 
-	app.get("/data", (req, res) => {
-		const { sensorId, moistureValue } = req.query;
-		const data = { sensorId, moistureValue };
-		return res.status(200).json({ statusCode: 200, data, message: "data logged successfully" });
-	});
+	app.get("/data", notificationRouter);
 
 	app.use(basicAuth({
 		users: { [serverUsername]:serverPassword },
@@ -29,6 +26,7 @@ export default (app: Express): Express => {
 	app.use("/users", userRoutes);
 	app.use("/devices", deviceRoutes);
 	app.use("/plots", plotRoutes);
+	app.use("/history", historyRoutes);
 	
 	docsRoute(app);
 
