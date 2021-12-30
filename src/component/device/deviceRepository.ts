@@ -12,17 +12,13 @@ const deviceRepository = {
 		});
 	},
 	
-	getDevices: async (page = 1, limit = 10, search?: string, type?: string, isMapped?: boolean): Promise<IDevices> => {
+	getDevices: async (page = 1, limit = 10): Promise<IDevices> => {
 		const skip = (page * limit) - limit;
 
-		const devicePromise = search ? Device.find({ serialNumber: { $regex: new RegExp(search)} }) : Device.find({});
-		if (type) devicePromise.where("type", type);
-		if (isMapped) devicePromise.where("isMapped", isMapped);
+		const devicePromise = Device.find({});
 		const devices = await devicePromise.skip(skip).limit(limit).sort({ createdAt: "desc" }).exec();
 		
-		const countPromise = search ? Device.find({ serialNumber: { $regex: new RegExp(search)} }) : Device.find({});
-		if (type) countPromise.where("type", type);
-		if (isMapped) countPromise.where("isMapped", isMapped);
+		const countPromise = Device.find({});
 		const count = await countPromise.countDocuments();
 		
 		return { data: devices, count, limit, page };

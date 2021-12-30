@@ -10,8 +10,8 @@ const deviceService = {
 		return newDevice;
 	},
 
-	getAllDevices: (page?:number, limit?:number, search?:string,  type?: string, isMapped?:boolean) => {
-		return deviceRepository.getDevices(page, limit, search, type, isMapped);
+	getAllDevices: (page?:number, limit?:number) => {
+		return deviceRepository.getDevices(page, limit);
 	},
 
 	getDeviceBySerialNumber: async (serialNumber: IDevice["serialNumber"]) => {
