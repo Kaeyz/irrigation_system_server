@@ -13,9 +13,8 @@ const deviceRepository = {
 	},
 	
 	getDevices: async (page = 1, limit = 10): Promise<IDevices> => {
-		console.log(page, limit);
 		const skip = (page * limit) - limit;
-
+		
 		const devicePromise = Device.find({});
 		const devices = await devicePromise.skip(skip).limit(limit).sort({ createdAt: "desc" }).exec();
 		

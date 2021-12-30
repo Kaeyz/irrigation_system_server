@@ -6,8 +6,15 @@ import { StatusCodes, AppError, responseMessages } from "./http";
 
 const authenticate = (req: Request, res: Response, next: NextFunction, callback?: (user: ISecureUserData, next: NextFunction) => void) => {
 	passport.authenticate("jwt", { session: false }, (err, user: ISecureUserData) => {
-		if (!user) throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.SESSION_EXPIRED);
-		if (!user.isActive) throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_SUSPENDED);
+
+		if (!user) {
+			const response =	new AppError(StatusCodes.FORBIDDEN, null, responseMessages.SESSION_EXPIRED);
+			return res.status(response.statusCode).json(response);	
+		}
+		if (!user.isActive) {
+			const response = new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_SUSPENDED);
+			return res.status(response.statusCode).json(response);
+		}
 		req.user = user;
 		if (callback) {
 			return callback(user, next);
@@ -24,14 +31,20 @@ export const authorizations = {
 
 	isUser: (req: Request, res: Response, next: NextFunction) => {
 		return authenticate(req, res, next, (user) => {
-			if (user.userType !== "user") throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_UNAUTHORIZED);
+			if (user.userType !== "user") {
+				const response = new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_UNAUTHORIZED);
+				return res.status(response.statusCode).json(response);
+			}
 			next();
 		});
 	},
 
 	isAdmin: (req: Request, res: Response, next: NextFunction) => {
 		return authenticate(req, res, next, (user, next) => {
-			if (user.userType !== "admin") throw new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_UNAUTHORIZED);
+			if (user.userType !== "admin") {
+				const response = new AppError(StatusCodes.FORBIDDEN, null, responseMessages.USER_UNAUTHORIZED);
+				return res.status(response.statusCode).json(response);
+			}
 			next();
 		});
 	},
