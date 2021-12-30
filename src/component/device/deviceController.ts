@@ -12,9 +12,10 @@ const deviceController = {
 	},
 
 	getDevices: async (req: Request, res: Response) => {
-		const { limit, page } = req.query;
+		const limit = req.query.limit || 10;
+		const page = req.query.page || 1;
 		const devices = await deviceService.getAllDevices(+page, +limit);
-		const response = { ...successResponse, data: devices };
+		const response = { ...successResponse, data: devices }; 
 		return res.status(response.statusCode).json(response);
 	},
 	
