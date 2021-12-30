@@ -19,12 +19,16 @@ const plotRepository = {
 		});
 	},
 
-	getPlotsByUser: (user: IPlot["user"]) => {
-		return new Promise((resolve, reject) => {
-			Plot.find({ user })
-				.then((plots: IPlot[]) => resolve(plots))
-				.catch(err => reject(err));
-		});
+	getPlotsByUser: async (user: IPlot["user"], page = 1, limit = 10) => {
+		const skip = (page * limit) - limit;
+		
+		const plotPromise = Plot.find({user});
+		const plots = await plotPromise.skip(skip).limit(limit).sort({ createdAt: "desc" }).exec();
+		
+		const countPromise = Plot.find({user});
+		const count = await countPromise.countDocuments();
+		
+		return { data: plots, count, limit, page };
 	},
 
 	getPlotById: (id: string) => {

@@ -9,8 +9,8 @@ const plotService = {
 		const newPlot = await plotRepository.createPlot(data);
 		return newPlot.toJSON();
 	},
-	geUserPlots: (user: IPlotInput["user"]) => {
-		return plotRepository.getPlotsByUser(user);
+	geUserPlots: (user: IPlotInput["user"], page: number, limit: number) => {
+		return plotRepository.getPlotsByUser(user, page, limit);
 	},
 	getPlot: async (id: string) => {
 		const plot = await plotRepository.getPlotById(id);

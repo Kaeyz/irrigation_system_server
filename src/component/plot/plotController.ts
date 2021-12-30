@@ -18,7 +18,9 @@ const plotController = {
 		return res.status(response.statusCode).json(response);
 	},
 	getUserPlots: async (req: AuthRequest, res: Response) => {
-		const plots = await plotService.geUserPlots(req.user._id);
+		const limit = req.query.limit || 10;
+		const page = req.query.page || 1;
+		const plots = await plotService.geUserPlots(req.user._id, +page, +limit);
 		const response = { ...successResponse, data: plots};
 		return res.status(response.statusCode).json(response);
 	},

@@ -16,6 +16,12 @@
  *     parameters:
  *       - name: token
  *         in: header
+ *         type: string 
+ *       - name: page
+ *         in: query
+ *         type: string
+ *       - name: limit
+ *         in: query
  *         type: string
  *     responses:
  *       200:
