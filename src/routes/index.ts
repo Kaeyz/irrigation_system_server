@@ -15,7 +15,7 @@ const getUnauthorizedResponse = (req:  basicAuth.IBasicAuthedRequest) => {
 
 export default (app: Express): Express => {
 
-	app.get("/data", notificationRouter);
+	app.use("/data", notificationRouter);
 
 	app.use(basicAuth({
 		users: { [serverUsername]:serverPassword },

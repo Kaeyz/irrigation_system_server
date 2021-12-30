@@ -7,7 +7,7 @@ const { isLoggedIn } = authorizations;
 
 const deviceRouter = Router();
 
-export const notificationRouter = Router().post("/", catchAppError(historyController.createHistory));
+export const notificationRouter = Router().get("/", catchAppError(historyController.createHistory));
 
 deviceRouter.get("/:plotId", isLoggedIn, catchAppError(historyController.getPlotHistory));
 
