@@ -20,7 +20,6 @@ const moistureInputValidations = {
 		if (!isValid) throw new AppError(StatusCodes.INVALID_INPUT, errors);
 		return isValid;
 	}
-
 };
 
 export default Object.freeze(moistureInputValidations);
