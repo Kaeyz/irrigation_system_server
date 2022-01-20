@@ -15,7 +15,7 @@ const historyController = {
 		const plot = await plotService.getPlotByMoistureSensor(data.moistureSensor);
 		const history = await historyService.addNewHistory(data, plot);
 		const response = { ...successResponse, data: history.toJSON(), message: "data logged successfully" };
-		return res.status(response.statusCode).send(response.data.isIrrigated);
+		return res.status(response.statusCode).send(String(response.data.isIrrigated));
 	},
 	getPlotHistory: async (req: AuthRequest, res: Response) => {
 		const limit = req.query.limit || 10;
