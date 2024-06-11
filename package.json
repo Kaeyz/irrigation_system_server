@@ -1,10 +1,10 @@
 {
-  "name": "irrigation_system_server",
+  "name": "olori-afro-shop-server",
   "version": "1.0.0",
-  "description": "Server side application for irrigation system",
+  "description": "Server side application for olori-afro-shop system",
   "main": "dist/index.js",
-  "engines" : { 
-    "node" : ">=0.16" 
+  "engines": {
+    "node": ">=0.16"
   },
   "scripts": {
     "tsc": "tsc",
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kaeyz/irrigation_system_server.git"
+    "url": "https://github.com/Gspeed-bit/olori-afro-shop-server.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Kaeyz/irrigation_system_server/issues"
+    "url": "https://github.com/Gspeed-bit/olori-afro-shop-server/issues"
   },
-  "homepage": "https://github.com/Kaeyz/irrigation_system_server#readme",
+  "homepage": "https://github.com/Gspeed-bit/olori-afro-shop-server#readme",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/cors": "^2.8.12",
@@ -39,21 +39,25 @@
     "eslint": "^8.2.0",
     "ts-node": "^10.4.0",
     "tsc-watch": "^4.5.0",
-    "typescript": "^4.4.4"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
+    "@discordjs/builders": "^1.8.2",
+    "@discordjs/collection": "^2.1.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
-    "discord.js": "^13.3.1",
+    "discord.js": "^14.15.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-basic-auth": "^1.2.0",
+    "glob": "^10.4.1",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
+    "rimraf": "^5.0.7",
     "swagger-jsdoc": "^6.0.0-rc.4",
     "swagger-ui-express": "^4.1.5",
     "validator": "^13.7.0"
